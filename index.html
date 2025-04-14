@@ -1,0 +1,169 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Public Records Watch</title>
+  <style>
+    body { font-family: Georgia, serif; background-color: #f9f9f9; margin: 0; padding: 0; color: #333; }
+    header { background-color: #0a1f44; color: #fff; padding: 20px 40px; text-align: center; }
+    header h1 { margin: 0; font-size: 2.5em; color: #fff; }
+    header p { margin: 5px 0 0; font-size: 1.1em; color: #cccccc; }
+    nav { background-color: #dce3ec; display: flex; justify-content: center; gap: 30px; padding: 15px 0; flex-wrap: wrap; position: relative; }
+    nav .dropdown { position: relative; }
+    nav a { text-decoration: none; color: #0a1f44; font-weight: bold; padding-bottom: 4px; display: inline-block; }
+    nav a.dropdown::after {
+      content: '\25BE';
+      font-size: 0.75em;
+      margin-left: 6px;
+    }
+    .dropdown-content {
+      display: none;
+      position: absolute;
+      background-color: #ffffff;
+      min-width: 260px;
+      box-shadow: 0px 8px 16px rgba(0,0,0,0.2);
+      z-index: 1;
+      top: 100%;
+      left: 0;
+      padding: 12px;
+    }
+    .dropdown:hover .dropdown-content {
+      display: block;
+    }
+    .dropdown-content a {
+      color: #0a1f44;
+      padding: 5px 0;
+      text-decoration: none;
+      display: block;
+      font-weight: normal;
+    }
+    .container { max-width: 960px; margin: 30px auto; padding: 0 20px; }
+    h1, h2 { color: #111; }
+    .section-box { background-color: #fff; padding: 30px; margin-bottom: 30px; border-radius: 6px; box-shadow: 0 1px 4px rgba(0, 0, 0, 0.05); line-height: 1.7; }
+    .search-bar { margin-top: 20px; margin-bottom: 40px; }
+    .search-bar input[type="text"] { width: 100%; padding: 12px; font-size: 16px; border-radius: 5px; border: 1px solid #ccc; }
+    .notice-box { background: #eaf0fa; padding: 15px 20px; border-left: 6px solid #1a3d7c; margin-bottom: 20px; font-size: 1.1em; }
+    .share-links { margin-top: 20px; text-align: center; font-size: 1.1em; }
+    .share-links a { margin: 0 10px; text-decoration: none; color: #4b0082; font-weight: bold; }
+    footer { background-color: #eee; text-align: center; padding: 15px 0; font-size: 0.9em; color: #555; }
+    footer a { color: #0a1f44; text-decoration: none; margin: 0 10px; }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Public Records Watch</h1>
+    <p>Research Archive | Civil Litigation & Legal Transparency</p>
+  </header>
+  <nav>
+    <div class="dropdown">
+      <a href="#" class="dropdown">Case Files</a>
+      <div class="dropdown-content">
+        <a href="#">Zacharia Ali</a>
+        <a href="#">Melissa Caddick</a>
+        <a href="#">Britni Dawn</a>
+        <a href="#">LaShonda Green</a>
+        <a href="#">Jay Manzini</a>
+        <a href="#">Kevin Trudeau</a>
+      </div>
+    </div>
+    <div class="dropdown">
+      <a href="#" class="dropdown">Behavioral Analysis</a>
+      <div class="dropdown-content">
+        <a href="The_Playbook_Watermarked.pdf" target="_blank">The Playbook (PDF)</a>
+        <a href="OnePage_Behavioral_Model_PublicRecordsWatch.pdf" target="_blank">1-Page Behavioral Model (PDF)</a>
+        <a href="Scamming_for_Sport_FINAL_Watermarked.pdf" target="_blank">Scamming for Sport (PDF)</a>
+      </div>
+    </div>
+    <div class="dropdown">
+      <a href="#" class="dropdown">Supplemental</a>
+      <div class="dropdown-content">
+        <a href="LLC_Liability_Shifting_and_Romantic_Fraud_Report_PublicRecordsWatch_2025.pdf" target="_blank">LLC & Romantic Fraud Report (PDF)</a>
+      </div>
+    </div>
+    <div class="dropdown">
+      <a href="#" class="dropdown">Dossier Access</a>
+      <div class="dropdown-content">
+        <a href="https://zenodo.org/records/15110322" target="_blank">Zenodo – Shell Games</a>
+        <a href="https://zenodo.org/records/15119633" target="_blank">Zenodo – Zacharia Ali Case Study</a>
+        <a href="https://zenodo.org/records/15200713" target="_blank">Zenodo – Fraud Playbook</a>
+        <a href="https://osf.io/u93eh/" target="_blank">OSF – Archive</a>
+        <a href="https://www.academia.edu/128596169/The_Exploitation_of_Romantic_Trust_in_Business_Ventures_A_Civil_Litigation_Profile_of_Zacharia_Ali" target="_blank">Academia – Romantic Trust</a>
+      </div>
+    </div>
+    <div class="dropdown">
+      <a href="#" class="dropdown">Resources & Guides</a>
+      <div class="dropdown-content">
+        <a href="How_to_Read_a_Court_Docket.pdf" target="_blank">How to Read a Court Docket</a>
+        <a href="Predatory_Patterns.pdf" target="_blank">Scammer Tactics</a>
+        <a href="Due_Diligence_101_PublicRecordsWatch.pdf" target="_blank">Due Diligence 101</a>
+      </div>
+    </div>
+    <div class="dropdown">
+      <a href="#" class="dropdown">Topics in Focus</a>
+      <div class="dropdown-content">
+        <a href="#">Affinity Fraud & Emotional Manipulation</a>
+        <a href="#">LLC Misuse & Corporate Evasion</a>
+        <a href="#">Civil Discovery Tactics</a>
+        <a href="#">Legal Abuse & Retaliatory Filings</a>
+        <a href="#">Fraud in the Wellness & Coaching Industry</a>
+      </div>
+    </div>
+    <a href="#">Contact Us</a>
+  </nav>
+
+  <div class="container">
+    <div class="search-bar">
+      <input type="text" placeholder="Search case summaries, entity names, or keywords...">
+    </div>
+
+    <div class="notice-box">
+      Looking for structured reports? Our longform dossiers are hosted on <a href="https://zenodo.org" target="_blank">Zenodo</a>, <a href="https://osf.io" target="_blank">OSF</a>, and <a href="https://figshare.com" target="_blank">Figshare</a> for citation and academic access. Visit the <strong>Dossier Access</strong> tab to explore them.
+    </div>
+
+    <div class="section-box">
+      <h2>Litigation Archive | Public Records Repository</h2>
+      <p>This verified archive provides critical access to civil litigation records and business entity histories from U.S. jurisdictions. All materials are compiled under Fair Reporting Privilege from official public sources and carefully reviewed for accuracy.</p>
+
+      <h3>What We Offer:</h3>
+      <ul>
+        <li>Comprehensive case dossiers revealing patterns of regulatory evasion</li>
+        <li>Business entity histories documenting financial misrepresentation</li>
+        <li>Analytical summaries identifying recurring compliance concerns</li>
+        <li>Source-verified documentation for professional reference</li>
+      </ul>
+
+      <h3>Who We Serve:</h3>
+      <ul>
+        <li>Compliance professionals conducting due diligence</li>
+        <li>Law enforcement building investigative foundations</li>
+        <li>Litigation specialists researching case precedents</li>
+        <li>Journalists investigating matters of public interest</li>
+        <li>Academic researchers examining institutional patterns</li>
+      </ul>
+
+      <h3>About Public Records Watch</h3>
+      <p>Our legal research initiative preserves and analyzes public interest court records and business filings. We operate under Fair Reporting Privilege and academic fair use principles to promote transparency and informed due diligence.</p>
+
+      <p>All materials are grounded in public record, with no intent to defame or accuse—only to provide reliable, accessible documentation for professional reference.</p>
+
+      <p><strong>Contact:</strong> publicrecordswatch (at) proton (dot) me</p>
+    </div>
+
+    <div class="share-links">
+      📩 Share Public Records Watch:
+      <a href="#">Twitter</a> |
+      <a href="#">Facebook</a> |
+      <a href="#">LinkedIn</a>
+    </div>
+  </div>
+
+  <footer>
+    <p>
+      &copy; 2025 Public Records Watch &nbsp;|&nbsp;
+      <a href="legal.html" target="_blank">Privacy Policy / Terms / Disclaimer</a>
+    </p>
+  </footer>
+</body>
+</html>
