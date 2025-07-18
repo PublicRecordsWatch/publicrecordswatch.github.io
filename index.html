@@ -14,179 +14,476 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Public Records Watch</title>
   <style>
-    body { font-family: Tahoma, serif; background-color: #f9f9f9; margin: 0; padding: 0; color: #333; }
-    header {
-  background-color: #0a1f44;
-  color: #fff;
-  padding: 20px 40px;
-  text-align: center;
-  border-bottom: 5px solid #e63946;} /* 🔴 Red line under header */
-    header h1 { margin: 0; font-size: 2.5em; color: #fff; 
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
     }
-    header p { margin: 5px 0 0; font-size: 1.1em; color: #fff;}
-    nav { background-color: #dce3ec; display: flex; justify-content: center; gap: 30px; padding: 15px 0; flex-wrap: wrap; position: relative; }
-    nav .dropdown { position: relative;
+
+    body { 
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+      background: white;
+      color: #1A1A1A;
+      line-height: 1.6;
     }
-    nav a { text-decoration: none; color: #0a1f44; font-weight: bold; padding-bottom: 4px; display: inline-block; }
-    nav a.dropdown::after {
-      content: '\25BE';
-      font-size: 0.75em;
-      margin-left: 6px;
+
+    /* Header */
+    .header {
+      background: white;
+      padding: 4rem 2rem 2rem;
+      text-align: center;
     }
-    .dropdown-content {
+
+    .header h1 {
+      font-size: 3.5rem;
+      font-weight: 400;
+      color: #1A1A1A;
+      margin-bottom: 1rem;
+      letter-spacing: -0.02em;
+    }
+
+    .header p {
+      font-size: 1.25rem;
+      color: #1A1A1A;
+      font-weight: 400;
+      margin-bottom: 2rem;
+    }
+
+    .header-line {
+      width: 100%;
+      height: 1px;
+      background: #E0E0E0;
+      margin: 2rem 0;
+    }
+
+    /* Navigation */
+    .nav {
+      background: white;
+      padding: 1rem 2rem;
+      margin-bottom: 2rem;
+    }
+
+    .nav-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 3rem;
+    }
+
+    .nav-item {
+      position: relative;
+    }
+
+    .nav-link {
+      color: #1A1A1A;
+      text-decoration: none;
+      font-weight: 400;
+      font-size: 1rem;
+      padding: 0.75rem 1.25rem;
+      border-radius: 8px;
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .nav-link::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 0;
+      height: 100%;
+      background: linear-gradient(45deg, #4F6D7A, #3B7C8A);
+      transition: width 0.3s ease;
+      z-index: -1;
+    }
+
+    .nav-link:hover {
+      color: white;
+      transform: translateY(-2px);
+    }
+
+    .nav-link:hover::before {
+      width: 100%;
+    }
+
+    .nav-link.has-dropdown::after {
+      content: '▼';
+      font-size: 0.7rem;
+      margin-left: 0.5rem;
+      color: #999;
+    }
+
+    .dropdown-menu {
       display: none;
       position: absolute;
-      background-color: #ffffff;
-      min-width: 260px;
-      box-shadow: 0px 8px 16px rgba(0,0,0,0.2);
-      z-index: 1;
       top: 100%;
-      left: 0;
-      padding: 12px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: white;
+      border: 1px solid #E0E0E0;
+      border-radius: 4px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      padding: 0.5rem 0;
+      margin-top: 0.5rem;
+      min-width: 250px;
+      z-index: 1000;
+      opacity: 0;
+      animation: fadeIn 0.3s ease forwards;
     }
-    .dropdown:hover .dropdown-content {
+
+    .nav-item:hover .dropdown-menu {
       display: block;
     }
-    .dropdown-content a {
-      color: #0a1f44;
-      padding: 5px 0;
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateX(-50%) translateY(-10px); }
+      to { opacity: 1; transform: translateX(-50%) translateY(0); }
+    }
+
+    .dropdown-menu a {
+      display: block;
+      padding: 0.5rem 1rem;
+      color: #1A1A1A;
       text-decoration: none;
-      display: block;
-      font-weight: normal;
+      font-size: 0.9rem;
+      transition: all 0.2s ease;
+      border-radius: 4px;
+      margin: 0 0.25rem;
     }
-    .container { max-width: 960px; margin: 30px auto; padding: 0 20px; }
-    h1, h2 { color: #111; }
-    .section-box { background-color: #fff; padding: 30px; margin-bottom: 30px; border-radius: 6px; box-shadow: 0 1px 4px rgba(0, 0, 0, 0.05); line-height: 1.7; }
-    .search-bar { margin-top: 20px; margin-bottom: 40px; }
-    .search-bar input[type="text"] { width: 100%; padding: 12px; font-size: 16px; border-radius: 5px; border: 1px solid #ccc; }
-    .notice-box { background: #eaf0fa; padding: 15px 20px; border-left: 6px solid #1a3d7c; margin-bottom: 20px; font-size: 1.1em; }
-    .share-links { margin-top: 20px; text-align: center; font-size: 1.1em; }
-    .share-links a { margin: 0 10px; text-decoration: none; color: #4b0082; font-weight: bold; }
-    footer { background-color: #eee; text-align: center; padding: 15px 0; font-size: 0.9em; color: #555; }
-    footer a { color: #0a1f44; text-decoration: none; margin: 0 10px; }
+
+    .dropdown-menu a:hover {
+      background: linear-gradient(135deg, #f0f6f6 0%, #e6f2f2 100%);
+      color: #1B1F3B;
+      transform: translateX(4px);
+    }
+
+    /* Main Container */
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 2rem;
+    }
+
+    /* Search */
+    .search-section {
+      margin-bottom: 2rem;
+    }
+
+    .search-input {
+      width: 100%;
+      max-width: 600px;
+      margin: 0 auto;
+      display: block;
+      padding: 1rem 1.5rem;
+      font-size: 1rem;
+      border: 1px solid #DDD;
+      border-radius: 8px;
+      background: #FAFAFA;
+      color: #666;
+      transition: all 0.3s ease;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    }
+
+    .search-input:focus {
+      outline: none;
+      border-color: #3B7C8A;
+      background: white;
+      box-shadow: 0 0 0 3px rgba(59, 124, 138, 0.1), 0 4px 12px rgba(0, 0, 0, 0.1);
+      transform: translateY(-1px);
+    }
+
+    /* Info Box */
+    .info-box {
+      background: #F8F9FA;
+      border-left: 4px solid #3B7C8A;
+      padding: 1.5rem;
+      margin-bottom: 3rem;
+      max-width: 800px;
+    }
+
+    .info-box p {
+      margin: 0;
+      color: #1A1A1A;
+      line-height: 1.6;
+    }
+
+    .info-box a {
+      color: #3B7C8A;
+      text-decoration: none;
+      font-weight: 500;
+    }
+
+    .info-box a:hover {
+      text-decoration: underline;
+    }
+
+    /* Three Column Grid */
+    .content-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 4rem;
+      margin-bottom: 4rem;
+    }
+
+    .content-section h2 {
+      font-size: 1.75rem;
+      font-weight: 400;
+      color: #1A1A1A;
+      margin-bottom: 1rem;
+    }
+
+    .content-section p {
+      color: #666;
+      margin-bottom: 1.5rem;
+      line-height: 1.6;
+      font-size: 1rem;
+    }
+
+    .content-link {
+      color: #3B7C8A;
+      text-decoration: none;
+      font-weight: 500;
+      font-size: 1rem;
+      padding: 0.5rem 1rem;
+      border-radius: 6px;
+      transition: all 0.3s ease;
+      display: inline-block;
+    }
+
+    .content-link:hover {
+      background: rgba(59, 124, 138, 0.1);
+      transform: translateY(-1px);
+      text-decoration: none;
+    }
+
+    /* About Section */
+    .about-section {
+      margin-top: 4rem;
+      max-width: 800px;
+    }
+
+    .about-section h2 {
+      font-size: 1.75rem;
+      font-weight: 400;
+      color: #1A1A1A;
+      margin-bottom: 1.5rem;
+    }
+
+    .about-section p {
+      color: #1A1A1A;
+      margin-bottom: 1.5rem;
+      line-height: 1.7;
+      font-size: 1rem;
+    }
+
+    /* Contact & Disclaimer */
+    .contact-section {
+      background: #F8F9FA;
+      padding: 1.5rem;
+      border-radius: 4px;
+      margin-top: 2rem;
+      text-align: center;
+    }
+
+    .disclaimer {
+      background: #FFF9E6;
+      border: 1px solid #E6D700;
+      padding: 1.5rem;
+      border-radius: 4px;
+      margin-top: 2rem;
+      font-size: 0.9rem;
+      color: #8B6914;
+    }
+
+    /* Footer */
+    .footer {
+      background: white;
+      border-top: 1px solid #E0E0E0;
+      padding: 2rem;
+      text-align: center;
+      margin-top: 4rem;
+    }
+
+    .footer p {
+      color: #666;
+      font-size: 0.9rem;
+    }
+
+    .footer a {
+      color: #3B7C8A;
+      text-decoration: none;
+    }
+
+    .footer a:hover {
+      text-decoration: underline;
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .header {
+        padding: 2rem 1rem;
+      }
+
+      .header h1 {
+        font-size: 2.5rem;
+      }
+
+      .nav {
+        padding: 1rem;
+      }
+
+      .nav-container {
+        flex-direction: column;
+        align-items: center;
+        gap: 1rem;
+      }
+
+      .container {
+        padding: 0 1rem;
+      }
+
+      .content-grid {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+      }
+
+      .dropdown-menu {
+        position: static;
+        transform: none;
+        box-shadow: none;
+        border: 1px solid #EEE;
+        margin-top: 0.5rem;
+      }
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
   </style>
 </head>
 <body>
-  <header>
+  <div class="header">
     <h1>Public Records Watch</h1>
-    <p> Indepdendent Research and Insight Into Public Records </p>
-  </header>
-  <nav>
-    <div class="dropdown">
-  <a href="#" class="dropdown">Case Files</a>
-  <div class="dropdown-content">
-    <a href="https://zenodo.org/records/15110322" target="_blank">Zacharia Ali</a>
-    <a href="Melissa%20Caddick.pdf" target="_blank">Melissa Caddick</a>
-    <a href="Brittany%20Dawn.pdf" target="_blank">Britni Dawn</a>
-    <a href="LaShonda%20Greene.pdf" target="_blank">LaShonda Green</a>
-    <a href="Jay%20Mazini.pdf" target="_blank">Jay Manzini</a>
-    <a href="Kevin%20Trudeau.pdf" target="_blank">Kevin Trudeau</a>
+    <p>Independent Investigations. Verified Public Records</p>
+    <div class="header-line"></div>
   </div>
-</div>
+
+  <nav class="nav">
+    <div class="nav-container">
+      <div class="nav-item">
+        <a href="#" class="nav-link has-dropdown">Case Files</a>
+        <div class="dropdown-menu">
+          <a href="https://zenodo.org/records/15110322" target="_blank">Zacharia Ali</a>
+          <a href="Melissa%20Caddick.pdf" target="_blank">Melissa Caddick</a>
+          <a href="Brittany%20Dawn.pdf" target="_blank">Britni Dawn</a>
+          <a href="LaShonda%20Greene.pdf" target="_blank">LaShonda Green</a>
+          <a href="Jay%20Mazini.pdf" target="_blank">Jay Manzini</a>
+          <a href="Kevin%20Trudeau.pdf" target="_blank">Kevin Trudeau</a>
+        </div>
+      </div>
+
+      <div class="nav-item">
+        <a href="#" class="nav-link has-dropdown">Behavioral Analysis</a>
+        <div class="dropdown-menu">
+          <a href="The_Playbook_Watermarked.pdf" target="_blank">The Playbook (PDF)</a>
+          <a href="OnePage_Behavioral_Model_PublicRecordsWatch.pdf" target="_blank">1-Page Behavioral Model</a>
+          <a href="Scamming_for_Sport_FINAL_Watermarked.pdf" target="_blank">Scamming for Sport</a>
+        </div>
+      </div>
+
+      <div class="nav-item">
+        <a href="Business_Risk_Assessment_Zacharia_Ali_PublicRecordsWatch_July2025.pdf" target="_blank" class="nav-link">Supplemental</a>
+      </div>
+
+      <div class="nav-item">
+        <a href="#" class="nav-link has-dropdown">Dossier Access</a>
+        <div class="dropdown-menu">
+          <a href="https://zenodo.org/records/15131563" target="_blank">Zenodo – Shell Games</a>
+          <a href="https://zenodo.org/records/15151740" target="_blank">Zenodo – Zacharia Ali Case Study</a>
+          <a href="https://zenodo.org/records/15200713" target="_blank">Zenodo – Fraud Playbook</a>
+          <a href="https://osf.io/u93eh/" target="_blank">OSF – Archive</a>
+        </div>
+      </div>
+
+      <div class="nav-item">
+        <a href="#" class="nav-link has-dropdown">Guides & Resources</a>
+        <div class="dropdown-menu">
+          <a href="How_to_Read_a_Court_Docket.pdf" target="_blank">How to Read a Court Docket</a>
+          <a href="Predatory_Patterns.pdf" target="_blank">Scammer Tactics</a>
+          <a href="Due_Diligence_101_Public_Records_Watch_2025.pdf" target="_blank">Due Diligence 101</a>
+        </div>
+      </div>
+
+      <div class="nav-item">
+        <a href="#contact" class="nav-link">Contact</a>
       </div>
     </div>
-    <div class="dropdown">
-      <a href="#" class="dropdown">Behavioral Analysis</a>
-      <div class="dropdown-content">
-        <a href="The_Playbook_Watermarked.pdf" target="_blank">The Playbook (PDF)</a>
-        <a href="OnePage_Behavioral_Model_PublicRecordsWatch.pdf" target="_blank">1-Page Behavioral Model (PDF)</a>
-        <a href="Scamming_for_Sport_FINAL_Watermarked.pdf" target="_blank">Scamming for Sport (PDF)</a>
-      </div>
-    </div>
- <div class="dropdown">
-  <a href="#" class="dropdown">Supplemental</a>
-  <div class="dropdown-content">
-    <a href="Business_Risk_Assessment_Zacharia_Ali_PublicRecordsWatch_July2025.pdf" target="_blank">
-      Zacharia Ali – Due Diligence Report (PDF)
-    </a>
-  </div>
-</div>
-    <div class="dropdown">
-      <a href="#" class="dropdown">Dossier Access</a>
-      <div class="dropdown-content">
-        <a href="https://zenodo.org/records/15131563" target="_blank">Zenodo – Shell Games</a>
-        <a href="https://zenodo.org/records/15151740" target="_blank">Zenodo – Zacharia Ali Case Study</a>
-        <a href="https://zenodo.org/records/15200713" target="_blank">Zenodo – Fraud Playbook</a>
-        <a href="https://osf.io/u93eh/" target="_blank">OSF – Archive</a>
-        
-      </div>
-    </div>
-    <div class="dropdown">
-<a href="#" class="dropdown">Resources & Guides</a>
-<div class="dropdown-content">
-<a href="How_to_Read_a_Court_Docket.pdf" target="_blank">How to Read a Court Docket</a>
-<a href="Predatory_Patterns.pdf" target="_blank">Scammer Tactics</a>
-<a href="Due_Diligence_101_Public_Records_Watch_2025.pdf" target="_blank">Due Diligence 101</a>
-</div>
-      </div>
-    </div>
-    <div class="dropdown">
-      <a href="#" class="dropdown">Topics in Focus</a>
-      <div class="dropdown-content">
-        <a href="#">Affinity Fraud & Emotional Manipulation</a>
-        <a href="#">LLC Misuse & Corporate Evasion</a>
-        <a href="#">Civil Discovery Tactics</a>
-        <a href="#">Legal Abuse & Retaliatory Filings</a>
-        <a href="#">Fraud in the Wellness & Coaching Industry</a>
-      </div>
-    </div>
-   <a href="#contact-info">Contact Us</a>
-    </nav>
-    
+  </nav>
+
   <div class="container">
-    <div class="search-bar">
-      <input type="text" placeholder="Search case summaries, entity names, or keywords...">
+    <div class="search-section">
+      <input type="text" class="search-input" placeholder="Search case summaries, entity names, or keywords...">
     </div>
 
-<div class="notice-box">
-  Looking for structured reports? Our longform dossiers are hosted on 
-  <a href="https://zenodo.org/records/15110322" target="_blank">Zenodo</a>, 
-  <a href="https://osf.io/u93eh/" target="_blank">OSF</a>, and 
-  <a href="https://figshare.com/articles/dataset/_i_Litigation_Profile_Zacharia_Ali_Civil_Records_Public_Filings_2012_2024_i_/28692731?file=53430971" target="_blank">Figshare</a> 
-  for citation and academic access. Visit the <strong>Dossier Access</strong> tab to explore them.
-</div>
-
-    <div class="section-box">
-      <h2>Litigation Archive | Public Records Repository</h2>
-      <p>This verified archive provides critical access to civil litigation records and business entity histories from U.S. jurisdictions. All materials are compiled under Fair Reporting Privilege from official public sources and carefully reviewed for accuracy.</p>
-
-      <h3>What We Offer:</h3>
-      <ul>
-        <li>Comprehensive case dossiers revealing patterns of regulatory evasion</li>
-        <li>Business entity histories documenting financial misrepresentation</li>
-        <li>Analytical summaries identifying recurring compliance concerns</li>
-        <li>Source-verified documentation for professional reference</li>
-      </ul>
-
-      <h3>Who We Serve:</h3>
-      <ul>
-        <li>Compliance professionals conducting due diligence</li>
-        <li>Law enforcement building investigative foundations</li>
-        <li>Litigation specialists researching case precedents</li>
-        <li>Journalists investigating matters of public interest</li>
-        <li>Academic researchers examining institutional patterns</li>
-      </ul>
-
-      <h3>About Public Records Watch</h3>
-      <p>Our legal research initiative preserves and analyzes public interest court records and business filings. We operate under Fair Reporting Privilege and academic fair use principles to promote transparency and informed due diligence.</p>
-
-      <p>All materials are grounded in public record, with no intent to defame or accuse—only to provide reliable, accessible documentation for professional reference.</p>
-      <p>DISCLAIMER: All information published by Public Records Watch is derived from publicly available records including court filings, corporate registries, and regulatory databases. No private, defamatory, or speculative content is included. This platform is provided for educational, archival, and journalistic purposes only</p>
-   <p id="contact-info"><strong>Contact:</strong> publicrecordswatch (at) proton (dot) me</p>
+    <div class="info-box">
+      <p>Looking for structured reports? Our longform dossiers are hosted on <a href="https://zenodo.org/records/15110322" target="_blank">Zenodo</a>, <a href="https://osf.io/u93eh/" target="_blank">OSF</a>, and <a href="https://figshare.com/articles/dataset/_i_Litigation_Profile_Zacharia_Ali_Civil_Records_Public_Filings_2012_2024_i_/28692731?file=53430971" target="_blank">Figshare</a> for citation and academic access.</p>
     </div>
-    <div class="share-links">
-      📩 Share Public Records Watch:
-      <a href="#">Twitter</a> |
-      <a href="#">Facebook</a> |
-      <a href="#">LinkedIn</a>
+
+    <div class="content-grid">
+      <div class="content-section">
+        <h2>Litigation Archive</h2>
+        <p>Investigations into regulatory evasion and financial misconduct</p>
+        <a href="#" class="content-link" onclick="alert('All case files available in the Case Files menu above')">Browse All</a>
+      </div>
+
+      <div class="content-section">
+        <h2>Supplemental</h2>
+        <p>Source documentation including court records and filings</p>
+        <a href="Business_Risk_Assessment_Zacharia_Ali_PublicRecordsWatch_July2025.pdf" target="_blank" class="content-link">Access Documents</a>
+      </div>
+
+      <div class="content-section">
+        <h2>Dossier Access</h2>
+        <p>Download in-depth reports from our online repositories</p>
+        <a href="https://zenodo.org/records/15131563" target="_blank" class="content-link">Read Dossiers</a>
+      </div>
+    </div>
+
+    <div class="about-section">
+      <h2>About Public Records Watch</h2>
+      <p>We provide transparent access to litigation, regulatory, and business conduct data from verified sources.</p>
+
+      <div class="disclaimer">
+        <strong>DISCLAIMER:</strong> All information published by Public Records Watch is derived from publicly available records including court filings, corporate registries, and regulatory databases. No private, defamatory, or speculative content is included. This platform is provided for educational, archival, and journalistic purposes only.
+      </div>
+
+      <div class="contact-section" id="contact">
+        <p><strong>Contact:</strong> publicrecordswatch (at) proton (dot) me</p>
+      </div>
     </div>
   </div>
 
-  <footer>
-    <p>
-      &copy; 2025 Public Records Watch &nbsp;|&nbsp;
-      <a href="legal.html" target="_blank">Privacy Policy / Terms / Disclaimer</a>
-    </p>
-  </footer>
+  <div class="footer">
+    <p>&copy; 2025 Public Records Watch | <a href="legal.html" target="_blank">Privacy Policy / Terms / Disclaimer</a></p>
+  </div>
+
+  <script>
+    // Mobile dropdown toggle
+    document.addEventListener('DOMContentLoaded', function() {
+      if (window.innerWidth <= 768) {
+        document.querySelectorAll('.nav-item').forEach(item => {
+          item.addEventListener('click', function(e) {
+            if (this.querySelector('.dropdown-menu')) {
+              e.preventDefault();
+              this.classList.toggle('active');
+            }
+          });
+        });
+      }
+    });
+  </script>
 </body>
 </html>
